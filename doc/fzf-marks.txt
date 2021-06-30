@@ -1,0 +1,55 @@
+*fzf-marks.vim* *fzf-marks.txt* *fzf-marks* author: tenfyzhong email: tenfy@tenfy.cn
+
+================================================================================
+Contents:
+0. Introduction -------------------------------- |fzf-marks-introduction|
+1. Install ------------------------------------- |fzf-marks-install|
+2. Usage --------------------------------------- |fzf-marks-usage|
+3. Command ------------------------------------- |fzf-marks-command|
+4. autocmd ------------------------------------- |fzf-marks-autocmd|
+5. LICENSE ------------------------------------- |fzf-marks-license|
+
+================================================================================
+0. Introduction                                  *fzf-marks-introduction*
+A vim plugin integrate with https://github.com/urbainvaes/fzf-marks
+
+Use `fzf` to open the bookmark and select a path to cd to.
+
+================================================================================
+1. Install                                       *fzf-marks-install*
+I suggest you to use a plugin manager, such vim-plug or other.
+- [vim-plug](https://github.com/junegunn/vim-plug)
+  Plug 'tenfyzhong/fzf-marks.vim'
+
+
+- Manual
+  git clone https://github.com/tenfyzhong/fzf-marks.vim.git ~/.vim/bundle/fzf-marks.vim
+  echo 'set rtp+=~/.vim/bundle/fzf-marks.vim' >> ~/.vimrc
+  vim -c 'helptag ~/.vim/bundle/fzf-marks.vim/doc' -c qa!
+
+================================================================================
+2. Usage                                         *fzf-marks-usage*
+Use command |FZFFzm| to open the fzf window and the select a bookmark. It will
+cd to the selected path automatically. 
+
+================================================================================
+3. Command                                       *fzf-marks-command*
+FZFFzm                                           *FZFFzm*
+Use `fzf` to query a bookmark and cd to it. 
+ 
+================================================================================
+4. autocmd                                       *fzf-marks-autocmd*
+User FZFMarksCd                                  *FZFMarksCd*
+After the bookmark is selected by |FZFFzm| command, the user autocmd event
+|FZFMarksCd| will be trigged. You can do you own action here. For example, 
+open the `NERDTree` in the current directory. 
+``` 
+autocmd User FZFMarksCd NERDTree 
+``` 
+
+================================================================================
+5. LICENSE                                       *fzf-marks-license*
+MIT License  Copyright (c) 2021 tenfy
+
+" vim:ft=help:iskeyword+=-:iskeyword+=58:iskeyword+=#
+
