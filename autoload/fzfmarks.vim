@@ -4,21 +4,25 @@ if s:fzf_marks_file ==# ''
 endif
 
 function! fzfmarks#callback(item)
-  if len(a:item) < 1
+  if len(a:item) < 2
     return
   endif
-  let content = a:item[0]
+  let cmd = a:item[0]
+  let content = a:item[1]
   let items = split(content, ' : ')
   if len(items) != 2 
-    echohl WarningMsg | echom "fzfmarks: <" . a:item[0] . "> illegal"
+    echoerr "fzfmarks: <" . a:item[1] . "> illegal"
     return
   endif
   let path = trim(items[1])
   if !isdirectory(path)
-      echohl WarningMsg | echom "fzfmarks: <" . path . "> is not found!" | echohl None
-      return
+    echoerr "fzfmarks: <" . path . "> is not found!"
+    return
   endif
 
+  if cmd == 'ctrl-t'
+    exec 'tabnew'
+  endif
   exec printf('cd %s', path)
   doautocmd User FZFMarksCd
 endfunction
@@ -27,6 +31,6 @@ function! fzfmarks#run()
   call fzf#run(fzf#wrap({
         \ 'source': 'cat ' . s:fzf_marks_file,
         \ 'sink*': function('fzfmarks#callback'),
-        \ 'options': '--delimiter :',
+        \ 'options': '--ansi --expect=ctrl-t --prompt "Path-marks > " --delimiter :',
         \ }))
 endfunction
